@@ -1,9 +1,12 @@
 class Admin::OrdersController < ApplicationController
+  layout "admin"
   before_action :set_admin_order, only: %i[ show edit update destroy ]
 
   # GET /admin/orders or /admin/orders.json
   def index
-    @admin_orders = Order.all
+    # @admin_orders = Order.all
+    @not_fullfilled_orders = Order.where(fullfield: false).order(created_at: :asc)
+    @fullfilled_orders = Order.where(fullfield: true).order(created_at: :asc)
   end
 
   # GET /admin/orders/1 or /admin/orders/1.json
