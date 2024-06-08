@@ -2,7 +2,16 @@ class AdminController < ApplicationController
   layout "admin"
   before_action :authenticate_admin!
 
-  def index
+  # Retorna os pedidos mais recentes que não foram concluídos e calcula estatísticas para refereência.
+  # retorna o hash de pedidos agrupados nos ultimos 7 dias
+  # se for menor que 7 dias de dados, preenche os dias ausentes com a receita da semana mais recente completa
+  #
+  # Retornos:
+  # - @orders: Um Array com os cinco pedidos mais recentes que não foram concluídos.
+  # - @stats_quick: Um Hash com estatísticas referentes aos pedidos mais recentes.
+  # - @orders_by_day: Um hash com os pedidos agrupados pelos últimos 7 dia.
+  # - @revenue_by_day: Um array de arrays com o dia da semana e a receita gerada no dia.
+
     @orders = Order.where(fullfield: false).order(created_at: :desc).take(5)
 
     @stats_quick = {
@@ -32,6 +41,4 @@ class AdminController < ApplicationController
       }
       revenue_by_day = complete_ordered_array_with_current_last
     end
-
-  end
 end
