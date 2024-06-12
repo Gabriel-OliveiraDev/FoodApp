@@ -23,11 +23,9 @@
 
   <div class="my-5">
   <% if admin_product.images.any? %>
-    <%= admin_product.images.each do |img| %>
-      <%= image_tag image.variant(:thumb), class:"w-20 object-cover rounded-md" %>
-    <% end %> 
+    <%= image_tag admin_product.images.first, class:"w-20 object-cover rounded-md" %>
   <% end %>
-  <%= form.label :images %>
+  <%= form.label :image %>
   <%= form.file_field :images, multiple: true, class:"block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
   </div>
 
