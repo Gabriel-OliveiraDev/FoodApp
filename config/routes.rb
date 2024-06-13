@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  root "home#index"
+  devise_for :admins
+
   namespace :admin do
     resources :orders
     resources :products do
@@ -6,15 +9,14 @@ Rails.application.routes.draw do
     end
     resources :categories
   end
-  devise_for :admins
 
   authenticated :admin_user do
     root to: "admin#index", as: :admin_root
   end
 
-  get "admin" => "admin#index"
   resources :categories, only: [:show]
   resources :products, only: [:show]
-  root "home#index"
 
+  get "admin" => "admin#index"
+  get "cart" => "cart#show"
 end
