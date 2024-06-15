@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   root "home#index"
-  devise_for :admins
 
+  devise_for :admins
   namespace :admin do
     resources :orders
     resources :products do
@@ -19,4 +19,6 @@ Rails.application.routes.draw do
 
   get "admin" => "admin#index"
   get "cart" => "cart#show"
+
+  post "checkout" => 'checkout#create'
 end
