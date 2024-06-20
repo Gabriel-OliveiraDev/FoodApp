@@ -21,4 +21,8 @@ Rails.application.routes.draw do
   get "cart" => "cart#show"
 
   post "checkout" => 'checkout#create'
+  get '/success', to: 'checkout#success'
+  get '/cancel', to: 'checkout#cancel'
+
+  post 'webhooks' => 'webhooks#stripe'
 end
